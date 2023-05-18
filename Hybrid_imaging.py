@@ -2,31 +2,33 @@
 import numpy as np
 import cv2
 
-img_m = cv2.imread("data/images/angry_man.png", cv2.IMREAD_COLOR)
-img_m = cv2.resize(img_m, (400, 400))
+img_1 = cv2.imread("data/images/angry_man.png", cv2.IMREAD_COLOR)
+img_1 = cv2.resize(img_1, (400, 400))
 
-img_w = cv2.imread("data/images/woman.png", cv2.IMREAD_COLOR)
-img_w = cv2.resize(img_w, (400, 400))
+img_2 = cv2.imread("data/images/woman.png", cv2.IMREAD_COLOR)
+img_2 = cv2.resize(img_2, (400, 400))
 
-cutoff_frequency = 10
+cutoff_frequency_low = 5
+cutoff_frequency_high = 10
 
-img_m_low = cv2.GaussianBlur(img_m,(0,0), cutoff_frequency)
+def lowpass (img, cutoff_frequency):
+    return cv2.GaussianBlur(img,(0,0), cutoff_frequency)
 
-img_w_high = cv2.subtract(img_w, cv2.GaussianBlur(img_w,(0,0), cutoff_frequency))
+def highpass (img, cutoff_frequency):
+    return cv2.subtract(img, cv2.GaussianBlur(img,(0,0), cutoff_frequency))
 
-img_Ergebnis = cv2.add(img_m_low, img_w_high)
+def hybrid_image (img1,img2):
+    return cv2.add(lowpass(img1,cutoff_frequency_low), highpass(img2,cutoff_frequency_high))
+
+img_result = hybrid_image(img_1,img_2)
+
+img_result_big = cv2.resize(img_result, (800, 800))
+img_result_small = cv2.resize(img_result, (150, 150))
 
 
-cv2.namedWindow("Angry_Man")
-cv2.namedWindow("Woman")
-cv2.namedWindow("Angry_Man_test")
-cv2.namedWindow("Woman_test")
-cv2.namedWindow("Ergebnis_test", cv2.WINDOW_FREERATIO)
+cv2.namedWindow("Result_big")
+cv2.namedWindow("Result_small")
 
-
-cv2.imshow("Angry_Man", img_m)
-cv2.imshow("Woman", img_w)
-cv2.imshow("Angry_Man_test", img_m_low)
-cv2.imshow("Woman_test", img_w_high)
-cv2.imshow("Ergebnis_test", img_Ergebnis)
+cv2.imshow("Result_big", img_result_big)
+cv2.imshow("Result_small", img_result_small)
 cv2.waitKey(0)
