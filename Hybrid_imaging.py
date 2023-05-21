@@ -16,11 +16,11 @@ def create_hybrid_image(img_1, img_2, cutoff_freq_img_1, cutoff_freq_img_2):
     img_result_small = cv2.resize(img_result, (150, 150))
 
 
-    cv2.namedWindow("Result big with high frequencies")
-    cv2.namedWindow("Result small with low frequencies")
+    cv2.namedWindow("Result big (high frequencies)")
+    cv2.namedWindow("Result small (low frequencies)")
 
-    cv2.imshow("Result big with high frequencies", img_result_big)
-    cv2.imshow("Result small with low frequencies", img_result_small)
+    cv2.imshow("Result big (high frequencies)", img_result_big)
+    cv2.imshow("Result small (low frequencies)", img_result_small)
     cv2.waitKey(0)
 
 def lowpass (img, cutoff_frequency):
