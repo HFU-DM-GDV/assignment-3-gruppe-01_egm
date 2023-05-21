@@ -2,33 +2,33 @@
 import numpy as np
 import cv2
 
-img_1 = cv2.imread("data/images/angry_man.png", cv2.IMREAD_COLOR)
-img_1 = cv2.resize(img_1, (400, 400))
+def hybrid_imaging(img_1, img_2, cutoff_frequency_1, cutoff_frequency_2):
+    '''Generate and show a hybrid image from img_1 and img_2.
+    img_1 is being filtered by a low-pass filter using cutoff_frequency_1 and
+    img_2 is being filtered by a high-pass filter using cutoff_frequency_2'''
 
-img_2 = cv2.imread("data/images/woman.png", cv2.IMREAD_COLOR)
-img_2 = cv2.resize(img_2, (400, 400))
+    img_result = hybrid_image(img_1, img_2, cutoff_frequency_1, cutoff_frequency_2)
 
-cutoff_frequency_low = 5
-cutoff_frequency_high = 10
+    img_result_big = cv2.resize(img_result, (800, 800))
+    img_result_small = cv2.resize(img_result, (150, 150))
+
+
+    cv2.namedWindow("Result_big")
+    cv2.namedWindow("Result_small")
+
+    cv2.imshow("Result_big", img_result_big)
+    cv2.imshow("Result_small", img_result_small)
+    cv2.waitKey(0)
 
 def lowpass (img, cutoff_frequency):
+    '''Return image filtered by low-pass filter'''
     return cv2.GaussianBlur(img,(0,0), cutoff_frequency)
 
 def highpass (img, cutoff_frequency):
+    '''Return image filtered by high-pass filter'''
     return cv2.subtract(img, cv2.GaussianBlur(img,(0,0), cutoff_frequency))
 
-def hybrid_image (img1,img2):
-    return cv2.add(lowpass(img1,cutoff_frequency_low), highpass(img2,cutoff_frequency_high))
+def hybrid_image (img_1, img_2, cutoff_frequency_1, cutoff_frequency_2):
+    '''Combine filtered images to one hybrid image'''
+    return cv2.add(lowpass(img_1, cutoff_frequency_1), highpass(img_2, cutoff_frequency_2))
 
-img_result = hybrid_image(img_1,img_2)
-
-img_result_big = cv2.resize(img_result, (800, 800))
-img_result_small = cv2.resize(img_result, (150, 150))
-
-
-cv2.namedWindow("Result_big")
-cv2.namedWindow("Result_small")
-
-cv2.imshow("Result_big", img_result_big)
-cv2.imshow("Result_small", img_result_small)
-cv2.waitKey(0)
