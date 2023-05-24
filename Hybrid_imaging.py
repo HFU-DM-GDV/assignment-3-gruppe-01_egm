@@ -19,6 +19,10 @@ def create_hybrid_image(img_1, img_2, cutoff_freq_img_1, cutoff_freq_img_2):
     cv2.namedWindow("Result big (high frequencies)")
     cv2.namedWindow("Result small (low frequencies)")
 
+    # make windows appear on top
+    cv2.setWindowProperty("Result big (high frequencies)", cv2.WND_PROP_TOPMOST, 1)
+    cv2.setWindowProperty("Result small (low frequencies)", cv2.WND_PROP_TOPMOST, 1)
+
     cv2.imshow("Result big (high frequencies)", img_result_big)
     cv2.imshow("Result small (low frequencies)", img_result_small)
     cv2.waitKey(0)
