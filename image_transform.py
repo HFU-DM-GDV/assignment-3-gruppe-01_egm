@@ -80,7 +80,6 @@ def guided_image_transform(master_img, transformee_img) -> np.ndarray:
     cv2.setMouseCallback("Master image", __click_src, master_img)
     cv2.setMouseCallback("Transformee image", __click_dst, transformee_img)
 
-
     # Keep looping until the 'q' key is pressed
     computationDone = False
     while True:
