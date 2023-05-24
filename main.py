@@ -1,4 +1,3 @@
-import numpy as np
 import cv2
 from image_transform import guided_image_transform 
 from hybrid_imaging import create_hybrid_image

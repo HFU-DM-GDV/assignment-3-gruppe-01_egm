@@ -1,5 +1,3 @@
-
-import numpy as np
 import cv2
 
 def create_hybrid_image(img_1, img_2, cutoff_freq_img_1, cutoff_freq_img_2):
