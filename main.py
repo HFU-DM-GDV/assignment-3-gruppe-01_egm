@@ -1,7 +1,7 @@
 import numpy as np
 import cv2
 from image_transform import guided_image_transform 
-from Hybrid_imaging import create_hybrid_image
+from hybrid_imaging import create_hybrid_image
 
 img_1 = cv2.imread("data/images/Nordwesten.png", cv2.IMREAD_COLOR)
 
